@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siklóernyő Vizsga Felkészítő</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Siklóernyő Vizsga Kérdések</h1>
+            <p id="subtitle">Válaszd ki a vizsga típusát a gyakorlás megkezdéséhez!</p>
+        </header>
+
+        <main id="home-view" class="view active">
+            <div class="button-group">
+                <button class="exam-btn primary" onclick="loadExam('A')">"A" Vizsga Kérdések</button>
+                <button class="exam-btn secondary" onclick="loadExam('B')">"B" Vizsga Kérdések</button>
+            </div>
+        </main>
+
+        <main id="exam-view" class="view">
+            <button class="back-btn" onclick="goHome()">&#8592; Vissza a főoldalra</button>
+            <h2 id="exam-title"></h2>
+            <div id="topics-container">
+                </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
