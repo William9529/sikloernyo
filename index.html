@@ -18,10 +18,19 @@
     <div class="container">
         <header>
             <h1>Siklóernyő Vizsga Kérdések</h1>
-            <p id="subtitle">Válaszd ki a vizsga típusát a gyakorlás megkezdéséhez!</p>
+            <p id="subtitle">Keresd meg a választ, vagy válassz vizsgatípust a gyakorláshoz!</p>
         </header>
 
         <main id="home-view" class="view active">
+            <!-- KERESŐ SZEKCIÓ -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Keresés a kérdésekben, válaszokban vagy témakörökben..." onkeyup="handleSearchKeyPress(event)">
+                <button class="search-btn" onclick="performSearch()">Keresés</button>
+            </div>
+            
+            <div id="search-results-container"></div>
+            <!-- KERESŐ SZEKCIÓ VÉGE -->
+
             <div class="button-group">
                 <button class="exam-btn primary" onclick="loadExam('A')">"A" Vizsga Kérdések</button>
                 <button class="exam-btn secondary" onclick="loadExam('B')">"B" Vizsga Kérdések</button>

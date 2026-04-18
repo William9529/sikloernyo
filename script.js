@@ -51,3 +51,69 @@ function goHome() {
     document.getElementById('exam-view').classList.remove('active');
     document.getElementById('home-view').classList.add('active');
 }
+
+// --- ÚJ: KERESŐ LOGIKA ---
+
+function handleSearchKeyPress(event) {
+    if (event.key === "Enter") {
+        performSearch();
+    }
+}
+
+function performSearch() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    const resultsContainer = document.getElementById('search-results-container');
+    
+    // Előző találatok törlése
+    resultsContainer.innerHTML = '';
+
+    // Ha üres a kereső, nem csinálunk semmit
+    if (!query) return;
+
+    let hasResults = false;
+
+    // Segédfüggvény az adatokban való kereséshez
+    const searchInData = (data, examName) => {
+        for (const [topicName, questions] of Object.entries(data)) {
+            questions.forEach(item => {
+                const qLower = item.q.toLowerCase();
+                const aLower = item.a.toLowerCase();
+                const topicLower = topicName.toLowerCase();
+
+                // Keresés szórészletre témakörben, kérdésben vagy válaszban
+                if (qLower.includes(query) || aLower.includes(query) || topicLower.includes(query)) {
+                    hasResults = true;
+                    
+                    const resultItem = document.createElement('details');
+                    resultItem.className = 'question-details search-result-item';
+                    
+                    const summary = document.createElement('summary');
+                    // Egy kis jelvény(badge), ami megmutatja honnan van a kérdés
+                    summary.innerHTML = `<span class="badge">"${examName}" vizsga | ${topicName}</span><br>${item.q}`;
+                    
+                    const answerDiv = document.createElement('div');
+                    answerDiv.className = 'answer';
+                    answerDiv.innerHTML = item.a;
+
+                    resultItem.appendChild(summary);
+                    resultItem.appendChild(answerDiv);
+                    resultsContainer.appendChild(resultItem);
+                }
+            });
+        }
+    };
+
+    // Keresés mindkét vizsgában
+    searchInData(examDataA, 'A');
+    searchInData(examDataB, 'B');
+
+    // Ha nincs találat, írjunk ki üzenetet
+    if (!hasResults) {
+        resultsContainer.innerHTML = '<p class="no-results">Nincs találat erre a kifejezésre.</p>';
+    }
+
+    // Újra-rendereljük a MathJax képleteket a találatokban
+    if (window.MathJax) {
+        MathJax.typesetPromise([resultsContainer]).catch((err) => console.log(err.message));
+    }
+}
