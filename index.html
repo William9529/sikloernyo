@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siklóernyő Vizsga Felkészítő</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Képletek szép megjelenítéséhez (MathJax) -->
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,11 +31,13 @@
         <main id="exam-view" class="view">
             <button class="back-btn" onclick="goHome()">&#8592; Vissza a főoldalra</button>
             <h2 id="exam-title"></h2>
-            <div id="topics-container">
-                </div>
+            <div id="topics-container"></div>
         </main>
     </div>
 
+    <!-- Adatfájlok és a fő szkript betöltése -->
+    <script src="data_a.js"></script>
+    <script src="data_b.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
