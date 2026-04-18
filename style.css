@@ -1,176 +1,191 @@
 :root {
-    --primary: #005f73;
-    --primary-hover: #0a9396;
-    --secondary: #ee9b00;
-    --secondary-hover: #ca6702;
-    --bg: #f0f4f8;
-    --text: #2b2d42;
-    --card-bg: #ffffff;
-    --radius: 12px;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary: #0ea5e9;
+    --secondary-hover: #0284c7;
+    --bg-overlay: rgba(255, 255, 255, 0.85);
+    --text: #1e293b;
+    --text-light: #64748b;
+    --radius: 16px;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    /* --- MODERN SIKLÓERNYŐS HÁTTÉRKÉP --- */
+    background: url('https://images.unsplash.com/photo-1520061592398-e6080328eb00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+    background-size: cover;
     color: var(--text);
     line-height: 1.6;
-    padding: 20px;
+    padding: 30px 15px;
+    min-height: 100vh;
 }
 
+/* Üveg hatású (Glassmorphism) konténer */
 .container {
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto;
-    background: var(--card-bg);
-    padding: 40px;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 50px;
     border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
 header { text-align: center; margin-bottom: 40px; }
-header h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; }
-header p { color: #6c757d; font-size: 1.1rem; }
+header h1 { color: #0f172a; font-size: 2.8rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+header p { color: var(--text-light); font-size: 1.15rem; font-weight: 500; }
 
 .view { display: none; }
-.view.active { display: block; animation: fadeIn 0.4s ease; }
+.view.active { display: block; animation: fadeIn 0.5s ease; }
 
-.button-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.button-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+
 .exam-btn {
-    padding: 15px 40px;
-    font-size: 1.3rem;
-    font-weight: bold;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
     border: none;
-    border-radius: var(--radius);
+    border-radius: 50px;
     cursor: pointer;
     color: white;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 250px;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
 }
-.exam-btn.primary { background-color: var(--primary); }
-.exam-btn.primary:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-.exam-btn.secondary { background-color: var(--secondary); }
-.exam-btn.secondary:hover { background-color: var(--secondary-hover); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+.exam-btn.primary { background: linear-gradient(135deg, var(--primary), #3b82f6); }
+.exam-btn.primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(37, 99, 235, 0.4); }
+
+.exam-btn.secondary { background: linear-gradient(135deg, var(--secondary), #38bdf8); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
+.exam-btn.secondary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(14, 165, 233, 0.4); }
 
 .back-btn {
-    background: none; border: none;
-    color: var(--primary); font-size: 1.1rem;
+    background: white; border: 1px solid #e2e8f0;
+    color: var(--text); font-size: 1rem;
     cursor: pointer; margin-bottom: 30px;
-    font-weight: bold; transition: color 0.2s;
-    display: flex; align-items: center; gap: 5px;
+    font-weight: 600; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-.back-btn:hover { color: var(--primary-hover); text-decoration: underline; }
+.back-btn:hover { background: #f8fafc; transform: translateX(-3px); }
 
-#exam-title { margin-bottom: 30px; color: var(--primary); font-size: 2rem; border-bottom: 3px solid #e9ecef; padding-bottom: 10px; }
+#exam-title { margin-bottom: 30px; color: #0f172a; font-size: 2.2rem; border-bottom: 2px solid #cbd5e1; padding-bottom: 15px; font-weight: 700; }
 
 details {
-    background: var(--bg);
-    border: 1px solid #dee2e6;
-    border-radius: var(--radius);
+    background: rgba(255,255,255,0.7);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
-details[open] { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+details[open] { background: #fff; box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: #cbd5e1; margin-bottom: 25px; }
 
 summary {
-    padding: 18px; font-weight: bold; cursor: pointer;
+    padding: 20px; font-weight: 600; cursor: pointer;
     list-style: none; display: flex; justify-content: space-between; align-items: center;
-    border-radius: var(--radius);
     transition: background-color 0.2s;
 }
 summary::-webkit-details-marker { display: none; }
-summary::after { content: '▼'; color: var(--primary); font-size: 1.2rem; transition: transform 0.3s; }
-details[open] > summary::after { transform: rotate(180deg); }
+summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; transition: transform 0.3s; font-weight: 400; }
+details[open] > summary::after { content: '−'; transform: rotate(180deg); }
 
-.topic-details > summary { font-size: 1.3rem; color: #1d3557; background-color: #e0fbfc; border: 1px solid #98c1d9; }
-.topic-details > summary:hover { background-color: #c2dfe3; }
-.topic-content { padding: 15px; }
+.topic-details > summary { font-size: 1.3rem; color: #0f172a; background: linear-gradient(to right, #f1f5f9, #ffffff); }
+.topic-details > summary:hover { background: #e2e8f0; }
+.topic-content { padding: 10px 20px 20px; }
 
-.question-details { border-left: 5px solid var(--primary); margin-bottom: 10px; background-color: #fff; }
-.question-details > summary { font-size: 1.05rem; color: #333; background-color: #f8f9fa; border: none; }
-.question-details > summary:hover { background-color: #e9ecef; }
-.answer { padding: 20px; background-color: #fff; color: #495057; border-top: 1px solid #eee; white-space: pre-line; font-size: 1.05rem; }
+.question-details { border-left: 4px solid var(--primary); margin-bottom: 12px; background-color: #f8fafc; }
+.question-details > summary { font-size: 1.05rem; color: #334155; padding: 15px; }
+.question-details > summary:hover { background-color: #f1f5f9; }
+.answer { padding: 20px; background-color: #fff; color: #475569; border-top: 1px solid #e2e8f0; white-space: pre-line; font-size: 1.05rem; line-height: 1.7; }
 
+/* Képek stílusa a szövegben */
 .exam-image {
-    max-width: 100%; height: auto;
+    max-width: 100%; max-height: 400px;
     margin-top: 15px; border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     display: block;
+    cursor: zoom-in;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.exam-image:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-/* --- ÚJ: KERESŐ STÍLUSOK --- */
-.search-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
+/* --- KERESŐ STÍLUSOK --- */
+.search-container { display: flex; gap: 15px; margin-bottom: 35px; justify-content: center; flex-wrap: wrap; }
 #search-input {
-    flex: 1;
-    min-width: 250px;
-    max-width: 600px;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-    border: 2px solid #dee2e6;
-    border-radius: var(--radius);
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    flex: 1; min-width: 250px; max-width: 600px;
+    padding: 16px 25px; font-size: 1.1rem;
+    border: 2px solid #cbd5e1; border-radius: 50px;
+    outline: none; transition: all 0.3s;
+    background: rgba(255,255,255,0.9);
 }
-
-#search-input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 8px rgba(0, 95, 115, 0.2);
-}
+#search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); background: #fff; }
 
 .search-btn {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    padding: 16px 35px; font-size: 1.1rem; font-weight: 600;
+    background-color: var(--text); color: white;
+    border: none; border-radius: 50px; cursor: pointer;
+    transition: all 0.3s;
 }
+.search-btn:hover { background-color: #0f172a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+#search-results-container { margin-bottom: 40px; }
 
-.search-btn:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
-}
-
-#search-results-container {
-    margin-bottom: 40px;
-}
-
-/* Találatok egyedi megjelenése */
-.search-result-item {
-    border-left-color: var(--secondary); /* Megkülönböztető szín a találatok bal szélén */
-}
-
+.search-result-item { border-left-color: var(--secondary); }
 .badge {
-    font-size: 0.8rem;
-    background-color: #e9ecef;
-    color: #495057;
-    padding: 4px 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    display: inline-block;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 0.75rem; background-color: #e2e8f0; color: #475569;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
+    display: inline-block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.no-results { text-align: center; color: var(--text-light); font-size: 1.1rem; font-style: italic; padding: 30px; background-color: rgba(248, 250, 252, 0.8); border-radius: var(--radius); border: 2px dashed #cbd5e1; }
+
+/* --- KÉPNÉZEGETŐ (LIGHTBOX) STÍLUSOK --- */
+.modal {
+    display: none; position: fixed; z-index: 9999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    overflow: auto; /* Görgetés, ha ránagyítunk a képre */
+    opacity: 0; transition: opacity 0.3s ease;
+    align-items: center; justify-content: center;
+}
+.modal.show { display: flex; opacity: 1; }
+
+.modal-content {
+    margin: auto; display: block;
+    max-width: 90%; max-height: 90vh;
+    border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: zoom-in;
+}
+.modal.show .modal-content { transform: scale(1); }
+
+/* Amikor a képre kattintunk, kinagyítódik */
+.modal-content.zoomed {
+    transform: scale(1.8);
+    cursor: zoom-out;
+    max-height: none; /* Engedjük, hogy kilógjon és lehessen görgetni */
 }
 
-.no-results {
-    text-align: center;
-    color: #6c757d;
-    font-size: 1.1rem;
-    font-style: italic;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: var(--radius);
-    border: 1px dashed #dee2e6;
+.close-btn {
+    position: fixed; top: 20px; right: 40px;
+    color: #f1f5f9; font-size: 50px; font-weight: 300;
+    transition: 0.3s; cursor: pointer; z-index: 10000;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
+.close-btn:hover, .close-btn:focus { color: #38bdf8; text-decoration: none; transform: scale(1.1); }
+
+@media (max-width: 768px) {
+    .container { padding: 30px 20px; }
+    header h1 { font-size: 2rem; }
+    .exam-btn { width: 100%; }
+    .search-container { flex-direction: column; }
+    #search-input { width: 100%; }
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }

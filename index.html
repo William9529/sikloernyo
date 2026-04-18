@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Siklóernyő Vizsga Kérdések</h1>
+            <h1>Siklóernyős vizsga kérdések</h1>
             <p id="subtitle">Keresd meg a választ, vagy válassz vizsgatípust a gyakorláshoz!</p>
         </header>
 
@@ -32,16 +32,25 @@
             <!-- KERESŐ SZEKCIÓ VÉGE -->
 
             <div class="button-group">
-                <button class="exam-btn primary" onclick="loadExam('A')">"A" Vizsga Kérdések</button>
-                <button class="exam-btn secondary" onclick="loadExam('B')">"B" Vizsga Kérdések</button>
+                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga kérdések</button>
+                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga kérdések</button>
             </div>
         </main>
 
         <main id="exam-view" class="view">
-            <button class="back-btn" onclick="goHome()">&#8592; Vissza a főoldalra</button>
+            <button class="back-btn" onclick="goHome()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Vissza a főoldalra
+            </button>
             <h2 id="exam-title"></h2>
             <div id="topics-container"></div>
         </main>
+    </div>
+
+    <!-- KÉPNÉZEGETŐ (LIGHTBOX) MODAL -->
+    <div id="image-modal" class="modal" onclick="closeModal(event)">
+        <span class="close-btn" title="Bezárás" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="expanded-img" onclick="toggleZoom(event)" title="Kattints a nagyításhoz/kicsinyítéshez">
     </div>
 
     <!-- Adatfájlok és a fő szkript betöltése -->

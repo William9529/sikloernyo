@@ -7,7 +7,6 @@ function loadExam(examType) {
     const container = document.getElementById('topics-container');
     container.innerHTML = '';
 
-    // Megfelelő adatbázis kiválasztása a paraméter alapján
     const topics = examType === 'A' ? examDataA : examDataB;
 
     for (const [topicName, questions] of Object.entries(topics)) {
@@ -41,7 +40,6 @@ function loadExam(examType) {
         container.appendChild(topicDetails);
     }
 
-    // Újra-rendereljük a matematikai képleteket az új tartalmon
     if (window.MathJax) {
         MathJax.typesetPromise([container]).catch((err) => console.log(err.message));
     }
@@ -52,7 +50,7 @@ function goHome() {
     document.getElementById('home-view').classList.add('active');
 }
 
-// --- ÚJ: KERESŐ LOGIKA ---
+// --- KERESŐ LOGIKA ---
 
 function handleSearchKeyPress(event) {
     if (event.key === "Enter") {
@@ -64,15 +62,12 @@ function performSearch() {
     const query = document.getElementById('search-input').value.toLowerCase().trim();
     const resultsContainer = document.getElementById('search-results-container');
     
-    // Előző találatok törlése
     resultsContainer.innerHTML = '';
 
-    // Ha üres a kereső, nem csinálunk semmit
     if (!query) return;
 
     let hasResults = false;
 
-    // Segédfüggvény az adatokban való kereséshez
     const searchInData = (data, examName) => {
         for (const [topicName, questions] of Object.entries(data)) {
             questions.forEach(item => {
@@ -80,7 +75,6 @@ function performSearch() {
                 const aLower = item.a.toLowerCase();
                 const topicLower = topicName.toLowerCase();
 
-                // Keresés szórészletre témakörben, kérdésben vagy válaszban
                 if (qLower.includes(query) || aLower.includes(query) || topicLower.includes(query)) {
                     hasResults = true;
                     
@@ -88,7 +82,6 @@ function performSearch() {
                     resultItem.className = 'question-details search-result-item';
                     
                     const summary = document.createElement('summary');
-                    // Egy kis jelvény(badge), ami megmutatja honnan van a kérdés
                     summary.innerHTML = `<span class="badge">"${examName}" vizsga | ${topicName}</span><br>${item.q}`;
                     
                     const answerDiv = document.createElement('div');
@@ -103,17 +96,58 @@ function performSearch() {
         }
     };
 
-    // Keresés mindkét vizsgában
     searchInData(examDataA, 'A');
     searchInData(examDataB, 'B');
 
-    // Ha nincs találat, írjunk ki üzenetet
     if (!hasResults) {
         resultsContainer.innerHTML = '<p class="no-results">Nincs találat erre a kifejezésre.</p>';
     }
 
-    // Újra-rendereljük a MathJax képleteket a találatokban
     if (window.MathJax) {
         MathJax.typesetPromise([resultsContainer]).catch((err) => console.log(err.message));
     }
 }
+
+// --- KÉPNÉZEGETŐ (LIGHTBOX) LOGIKA ---
+
+// Kép kattintás figyelése a teljes dokumentumon (delegálás)
+document.addEventListener('click', function(e) {
+    // Ha egy vizsgaképre kattintottunk
+    if (e.target && e.target.classList.contains('exam-image')) {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('expanded-img');
+        
+        modalImg.src = e.target.src;
+        modalImg.classList.remove('zoomed'); // Alapállapotba tesszük a nagyítást
+        modal.classList.add('show');
+    }
+});
+
+// Kép nagyítása/kicsinyítése rákattintással a modalon belül
+function toggleZoom(event) {
+    // Megakadályozzuk, hogy a kattintás továbbmenjen a modal háttérre (ami bezárná)
+    event.stopPropagation(); 
+    const img = event.target;
+    img.classList.toggle('zoomed');
+}
+
+// Modal bezárása
+function closeModal(event) {
+    const modal = document.getElementById('image-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    
+    // Csak akkor zárjuk be, ha a háttérre (modal) vagy a bezáró 'X'-re kattint
+    if (event.target === modal || event.target === closeBtn) {
+        modal.classList.remove('show');
+    }
+}
+
+// ESC gombra is be lehessen zárni
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        const modal = document.getElementById('image-modal');
+        if (modal.classList.contains('show')) {
+            modal.classList.remove('show');
+        }
+    }
+});
