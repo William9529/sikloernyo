@@ -6,6 +6,10 @@
     <title>Siklóernyő Vizsga Felkészítő</title>
     <link rel="stylesheet" href="style.css">
     
+    <!-- PWA Manifest és témaszín -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    
     <!-- Képletek szép megjelenítéséhez (MathJax) -->
     <script>
       window.MathJax = {
@@ -17,23 +21,22 @@
 <body>
     <div class="container">
         <header>
-            <h1>Siklóernyős vizsga kérdések</h1>
+            <h1>Siklóernyő Vizsga Kérdések</h1>
             <p id="subtitle">Keresd meg a választ, vagy válassz vizsgatípust a gyakorláshoz!</p>
         </header>
 
         <main id="home-view" class="view active">
-            <!-- KERESŐ SZEKCIÓ -->
+            <!-- KERESŐ SZEKCIÓ (Placeholder nélkül) -->
             <div class="search-container">
-                <input type="text" id="search-input" placeholder="Keresés a kérdésekben, válaszokban vagy témakörökben..." onkeyup="handleSearchKeyPress(event)">
+                <input type="text" id="search-input" onkeyup="handleSearchKeyPress(event)">
                 <button class="search-btn" onclick="performSearch()">Keresés</button>
             </div>
             
             <div id="search-results-container"></div>
-            <!-- KERESŐ SZEKCIÓ VÉGE -->
 
             <div class="button-group">
-                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga kérdések</button>
-                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga kérdések</button>
+                <button class="exam-btn primary" onclick="loadExam('A')">"A" Vizsga Kérdések</button>
+                <button class="exam-btn secondary" onclick="loadExam('B')">"B" Vizsga Kérdések</button>
             </div>
         </main>
 
@@ -47,13 +50,12 @@
         </main>
     </div>
 
-    <!-- KÉPNÉZEGETŐ (LIGHTBOX) MODAL -->
+    <!-- KÉPNÉZEGETŐ MODAL -->
     <div id="image-modal" class="modal" onclick="closeModal(event)">
         <span class="close-btn" title="Bezárás" onclick="closeModal(event)">&times;</span>
-        <img class="modal-content" id="expanded-img" onclick="toggleZoom(event)" title="Kattints a nagyításhoz/kicsinyítéshez">
+        <img class="modal-content" id="expanded-img" onclick="toggleZoom(event)" title="Kattints a nagyításhoz">
     </div>
 
-    <!-- Adatfájlok és a fő szkript betöltése -->
     <script src="data_a.js"></script>
     <script src="data_b.js"></script>
     <script src="script.js"></script>

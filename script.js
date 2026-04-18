@@ -150,4 +150,16 @@ document.addEventListener('keydown', function(event) {
             modal.classList.remove('show');
         }
     }
+    // --- PWA (Offline App) Regisztráció ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+                console.log('ServiceWorker sikeresen regisztrálva:', registration.scope);
+            })
+            .catch(error => {
+                console.log('ServiceWorker regisztráció sikertelen:', error);
+            });
+    });
+}
 });
