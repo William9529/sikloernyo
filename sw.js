@@ -1,3 +1,4 @@
+/* sw.js */
 const CACHE_NAME = 'sikloernyo-cache-v3.4'; // Növeld a verziószámot minden módosításkor!
 const urlsToCache = [
   './',
@@ -6,7 +7,8 @@ const urlsToCache = [
   './script.js',
   './data_a.js',
   './data_b.js',
-  './assets/app_icon.png'
+  './assets/app_icon.png', // Az ikont is add hozzá!
+  './assets/stylish_paragliding_bg.png' // Új háttérkép
 ];
 
 // Telepítés és fájlok gyorsítótárazása
