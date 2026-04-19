@@ -1,11 +1,12 @@
-const CACHE_NAME = 'sikloernyo-cache-v1.1';
+const CACHE_NAME = 'sikloernyo-cache-v1.2'; // Frissítve v1.1-ről
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './script.js',
   './data_a.js',
-  './data_b.js'
+  './data_b.js',
+  './assets/app_icon.png' // Az ikont is add hozzá a listához!
 ];
 
 self.addEventListener('install', event => {

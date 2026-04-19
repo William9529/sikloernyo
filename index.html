@@ -8,6 +8,7 @@
     
     <!-- PWA Manifest és témaszín -->
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/app_icon.png">
     <meta name="theme-color" content="#2563eb">
     
     <!-- Képletek szép megjelenítéséhez (MathJax) -->
@@ -21,8 +22,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>Siklóernyő Vizsga Kérdések</h1>
-            <p id="subtitle">Keresd meg a választ, vagy válassz vizsgatípust a gyakorláshoz!</p>
+            <h1>Siklóernyős vizsga kérdések</h1>
+            <p id="subtitle">Keress rá bármire!</p>
         </header>
 
         <main id="home-view" class="view active">
@@ -36,8 +37,8 @@
             <!-- KERESŐ SZEKCIÓ VÉGE -->
 
             <div class="button-group">
-                <button class="exam-btn primary" onclick="loadExam('A')">"A" Vizsga Kérdések</button>
-                <button class="exam-btn secondary" onclick="loadExam('B')">"B" Vizsga Kérdések</button>
+                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga kérdések</button>
+                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga kérdések</button>
             </div>
         </main>
 
@@ -58,7 +59,7 @@
     </div>
 
     <!-- VERZIÓSZÁM MEGJELENÍTÉSE -->
-    <div id="version-display">v3.1</div>
+    <div id="version-display">v3.2</div>
 
     <!-- Adatfájlok és a fő szkript betöltése -->
     <script src="data_a.js"></script>
