@@ -2,66 +2,52 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Siklóernyő Vizsga Felkészítő</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- PWA Manifest és témaszín -->
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/app_icon.png">
     <meta name="theme-color" content="#2563eb">
-    
-    <!-- Képletek szép megjelenítéséhez (MathJax) -->
     <script>
-      window.MathJax = {
-        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-      };
+      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Siklóernyős vizsga kérdések</h1>
-            <p id="subtitle">Keress rá bármire a vizsgákkal kapcsolatban!</p>
+            <h1>Siklóernyős vizsga</h1>
+            <p id="subtitle">Keresés vagy témakör választás</p>
         </header>
 
         <main id="home-view" class="view active">
-            <!-- KERESŐ SZEKCIÓ -->
-            <div class="search-container">
-                <input type="text" id="search-input" onkeyup="handleSearchKeyPress(event)">
-                <button class="search-btn" onclick="performSearch()">Keresés</button>
+            <div class="search-box">
+                <input type="text" id="search-input" onkeyup="handleSearchKeyPress(event)" placeholder="Kulcsszó (pl. meteorológia)...">
+                <button class="search-btn" onclick="performSearch()">OK</button>
             </div>
             
             <div id="search-results-container"></div>
-            <!-- KERESŐ SZEKCIÓ VÉGE -->
 
             <div class="button-group">
-                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga kérdések</button>
-                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga kérdések</button>
+                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga</button>
+                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga</button>
             </div>
         </main>
 
         <main id="exam-view" class="view">
-            <button class="back-btn" onclick="goHome()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Vissza a főoldalra
-            </button>
+            <button class="back-btn" onclick="goHome()">← Vissza</button>
             <h2 id="exam-title"></h2>
             <div id="topics-container"></div>
         </main>
     </div>
 
-    <!-- KÉPNÉZEGETŐ (LIGHTBOX) MODAL -->
     <div id="image-modal" class="modal" onclick="closeModal(event)">
-        <span class="close-btn" title="Bezárás" onclick="closeModal(event)">&times;</span>
-        <img class="modal-content" id="expanded-img" onclick="toggleZoom(event)" title="Kattints a nagyításhoz/kicsinyítéshez">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="expanded-img" onclick="toggleZoom(event)">
     </div>
 
-    <!-- VERZIÓSZÁM MEGJELENÍTÉSE -->
-    <div id="version-display">v3.4</div>
+    <div id="version-tag">v4.0</div>
 
-    <!-- Adatfájlok és a fő szkript betöltése -->
     <script src="data_a.js"></script>
     <script src="data_b.js"></script>
     <script src="script.js"></script>
