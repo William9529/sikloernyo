@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sikloernyo-cache-v1.2'; // Frissítve v1.1-ről
+const CACHE_NAME = 'sikloernyo-cache-v1.3'; // Növeld a verziószámot minden módosításkor!
 const urlsToCache = [
   './',
   './index.html',
@@ -6,9 +6,10 @@ const urlsToCache = [
   './script.js',
   './data_a.js',
   './data_b.js',
-  './assets/app_icon.png' // Az ikont is add hozzá a listához!
+  './assets/app_icon.png'
 ];
 
+// Telepítés és fájlok gyorsítótárazása
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -18,11 +19,32 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('install', event => {
-  self.skipWaiting(); // Azonnal aktiválódik az új verzió, nem vár a bezárásra
-  // ... a többi kódod (urlsToCache, stb.)
+// Aktiválás: a régi gyorsítótárak törlése és az irányítás azonnali átvétele
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    Promise.all([
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      }),
+      self.clients.claim() // Azonnal átveszi az irányítást a nyitott ablakok felett
+    ])
+  );
 });
 
+// Értesítés fogadása a script.js-től
+self.addEventListener('message', event => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
+
+// Offline kiszolgálás
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)

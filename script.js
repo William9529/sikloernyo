@@ -144,25 +144,39 @@ document.addEventListener('keydown', function(event) {
 });
 
 // --- PWA (Offline App) Regisztráció ---
+// --- PWA (Offline App) Regisztráció és Frissítés Kezelés ---
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').then(reg => {
+            
+            // Figyeljük, ha új SW érkezik
             reg.addEventListener('updatefound', () => {
                 const newWorker = reg.installing;
                 newWorker.addEventListener('statechange', () => {
-                    // Amikor az új SW települt és várakozik
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        showUpdateNotification();
+                        showUpdateNotification(newWorker);
                     }
                 });
+            });
+
+            // Ha frissítés történt, az oldal újraindul, és ez az esemény fut le
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    window.location.reload();
+                    refreshing = true;
+                }
             });
         });
     });
 }
 
-function showUpdateNotification() {
-    const userConfirmed = confirm("Új verzió érhető el. Szeretnéd frissíteni?");
+function showUpdateNotification(worker) {
+    // Egy egyszerű confirm ablakot használunk, de készíthetsz egy szebb felugró div-et is
+    const userConfirmed = confirm("Új verzió érhető el a vizsgafelkészítőből. Szeretnéd frissíteni?");
     if (userConfirmed) {
-        window.location.reload(); // Frissítés után az új verzió tölt be
+        // Üzenetet küldünk a várakozó SW-nek, hogy aktiválódjon
+        worker.postMessage({ action: 'skipWaiting' });
     }
 }
+
