@@ -1,49 +1,39 @@
-const CACHE_NAME = 'sikloernyo-v7.0'; // Új verziószám a cache névben
+const CACHE_NAME = 'sikloernyo-v7.1'; // HA EZT ÁTÍROD, MINDENKI FRISSÜLNI FOG
 const urlsToCache = [
-  './',
   './index.html',
-  './style.css',
-  './script.js',
-  './data_a.js',
-  './data_b.js',
-  './manifest.json'
+  './style.css?v=7.1',
+  './script.js?v=7.1',
+  './data_a.js?v=7.1',
+  './data_b.js?v=7.1',
+  './manifest.json?v=7.1'
 ];
 
 self.addEventListener('install', e => {
-  self.skipWaiting();
+  self.skipWaiting(); // Nem vár, azonnal települ
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
 self.addEventListener('activate', e => {
-  // Régi cache verziók törlése a frissítés kényszerítéséhez
   e.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            console.log('Régi cache törlése:', key);
+            return caches.delete(key);
           }
         })
       );
     })
   );
-  self.clients.claim();
+  self.clients.claim(); // Azonnal átveszi az irányítást minden nyitott fül felett
 });
 
 self.addEventListener('fetch', e => {
+  // Hálózatot nézi meg először, ha nincs net, csak akkor adja a cache-t
   e.respondWith(
-    fetch(e.request)
-      .then(response => {
-        if (response && response.status === 200) {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(e.request, responseClone));
-        }
-        return response;
-      })
-      .catch(() => {
-        return caches.match(e.request);
-      })
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
