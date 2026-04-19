@@ -58,7 +58,7 @@ const examDataA = {
         },
         {
             q: "15. Hogyan változik a minimum és maximum terheléssel az ernyő siklószáma? Rajzolj egy ábrát és magyarázd el az aerodinamikai összefüggéseket! – 3 pont(166.o)",
-            a: "<img src='images_a/aerodinamika_a_15_terheles.jpg' class='exam-image' alt='Polárgörbe terhelés függvényében'>\nA nagyobb súlyú pilóta nagyobb terhelést jelent, az ernyő ezért nagyobb sebességgel halad. Arányosan nő a légellenállás és a felhajtóerő.\nA siklószám terheléstől függetlenül változatlan marad, de nő a sebesség."
+            a: "<img src='images_a/aerodinamika_a_15_terheles.png' class='exam-image' alt='Polárgörbe terhelés függvényében'>\nA nagyobb súlyú pilóta nagyobb terhelést jelent, az ernyő ezért nagyobb sebességgel halad. Arányosan nő a légellenállás és a felhajtóerő.\nA siklószám terheléstől függetlenül változatlan marad, de nő a sebesség."
         }
     ],
     "EGÉSZSÉGÜGY": [

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sikloernyo-v4.0';
+const CACHE_NAME = 'sikloernyo-v4.2';
 const urlsToCache = [
   './',
   './index.html',
