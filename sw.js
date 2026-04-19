@@ -1,11 +1,11 @@
-const CACHE_NAME = 'sikloernyo-v7.1'; // HA EZT ÁTÍROD, MINDENKI FRISSÜLNI FOG
+const CACHE_NAME = 'sikloernyo-v7.2'; // HA EZT ÁTÍROD, MINDENKI FRISSÜLNI FOG
 const urlsToCache = [
   './index.html',
-  './style.css?v=7.1',
-  './script.js?v=7.1',
-  './data_a.js?v=7.1',
-  './data_b.js?v=7.1',
-  './manifest.json?v=7.1'
+  './style.css?v=7.2',
+  './script.js?v=7.2',
+  './data_a.js?v=7.2',
+  './data_b.js?v=7.2',
+  './manifest.json?v=7.2'
 ];
 
 self.addEventListener('install', e => {

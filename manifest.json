@@ -2,7 +2,7 @@
   "name": "Siklóernyős vizsga felkészítő",
   "short_name": "Siklóernyő",
   "description": "Offline vizsgafelkészítő applikáció",
-  "start_url": "./index.html?v=7.1",
+  "start_url": "./index.html?v=7.2",
   "display": "standalone",
   "background_color": "#EAEAEA",
   "theme_color": "#4A5059",
