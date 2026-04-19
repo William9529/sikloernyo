@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sikloernyo-cache-v1';
+const CACHE_NAME = 'sikloernyo-cache-v1.1';
 const urlsToCache = [
   './',
   './index.html',
@@ -8,7 +8,6 @@ const urlsToCache = [
   './data_b.js'
 ];
 
-// Telepítéskor elmentjük a fájlokat
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -18,7 +17,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// Lekéréskor (amikor net nélkül vagyunk), a cache-ből adjuk vissza
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)

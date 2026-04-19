@@ -1,4 +1,4 @@
-// Navigációs logika és HTML generálás
+// --- Navigációs logika és HTML generálás ---
 function loadExam(examType) {
     document.getElementById('home-view').classList.remove('active');
     document.getElementById('exam-view').classList.add('active');
@@ -51,7 +51,6 @@ function goHome() {
 }
 
 // --- KERESŐ LOGIKA ---
-
 function handleSearchKeyPress(event) {
     if (event.key === "Enter") {
         performSearch();
@@ -109,40 +108,32 @@ function performSearch() {
 }
 
 // --- KÉPNÉZEGETŐ (LIGHTBOX) LOGIKA ---
-
-// Kép kattintás figyelése a teljes dokumentumon (delegálás)
 document.addEventListener('click', function(e) {
-    // Ha egy vizsgaképre kattintottunk
     if (e.target && e.target.classList.contains('exam-image')) {
         const modal = document.getElementById('image-modal');
         const modalImg = document.getElementById('expanded-img');
         
         modalImg.src = e.target.src;
-        modalImg.classList.remove('zoomed'); // Alapállapotba tesszük a nagyítást
+        modalImg.classList.remove('zoomed');
         modal.classList.add('show');
     }
 });
 
-// Kép nagyítása/kicsinyítése rákattintással a modalon belül
 function toggleZoom(event) {
-    // Megakadályozzuk, hogy a kattintás továbbmenjen a modal háttérre (ami bezárná)
     event.stopPropagation(); 
     const img = event.target;
     img.classList.toggle('zoomed');
 }
 
-// Modal bezárása
 function closeModal(event) {
     const modal = document.getElementById('image-modal');
     const closeBtn = document.querySelector('.close-btn');
     
-    // Csak akkor zárjuk be, ha a háttérre (modal) vagy a bezáró 'X'-re kattint
     if (event.target === modal || event.target === closeBtn) {
         modal.classList.remove('show');
     }
 }
 
-// ESC gombra is be lehessen zárni
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         const modal = document.getElementById('image-modal');
@@ -150,7 +141,9 @@ document.addEventListener('keydown', function(event) {
             modal.classList.remove('show');
         }
     }
-    // --- PWA (Offline App) Regisztráció ---
+});
+
+// --- PWA (Offline App) Regisztráció ---
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
@@ -162,4 +155,3 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-});
