@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sikloernyo-cache-v1.3'; // Növeld a verziószámot minden módosításkor!
+const CACHE_NAME = 'sikloernyo-cache-v3.3'; // Növeld a verziószámot minden módosításkor!
 const urlsToCache = [
   './',
   './index.html',
