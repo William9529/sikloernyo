@@ -80,15 +80,30 @@ function goHome() {
 }
 
 // PINCH-TO-ZOOM ÉS MODAL LOGIKA
+// PINCH-TO-ZOOM ÉS MOZGATÁS (PANNING) LOGIKA
 let scale = 1;
 let lastDist = 0;
+let translateX = 0;
+let translateY = 0;
+let startX = 0;
+let startY = 0;
+
 const modal = document.getElementById('image-modal');
 const modalImg = document.getElementById('expanded-img');
 
+function updateTransform() {
+    // A nagyítás és az eltolás együttes alkalmazása
+    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('exam-image')) {
+        // Megnyitáskor mindent visszaállítunk alaphelyzetbe
         scale = 1;
-        modalImg.style.transform = `scale(${scale})`;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+        
         modalImg.src = e.target.src;
         modal.classList.add('show');
     }
@@ -100,24 +115,41 @@ function closeModal(e) {
     }
 }
 
-// Érintéskezelés a nagyításhoz
+// Érintéskezelés: Két ujj = Zoom | Egy ujj = Mozgatás
 modal.addEventListener('touchstart', e => {
     if (e.touches.length === 2) {
         lastDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+    } else if (e.touches.length === 1 && scale > 1) {
+        // Egyujjas érintésnél megjegyezzük a kezdőpozíciót (kivonva belőle az eddigi eltolást)
+        startX = e.touches[0].pageX - translateX;
+        startY = e.touches[0].pageY - translateY;
     }
 });
 
 modal.addEventListener('touchmove', e => {
+    e.preventDefault(); // Megakadályozza az oldal görgetését a háttérben
+    
     if (e.touches.length === 2) {
-        e.preventDefault();
+        // --- ZOOM ---
         const dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
         const delta = dist / lastDist;
         scale *= delta;
-        if (scale < 1) scale = 1;
-        if (scale > 10) scale = 10;
         
-        modalImg.style.transform = `scale(${scale})`;
+        if (scale < 1) {
+            scale = 1;
+            translateX = 0; // Ha visszazoomolunk alapméretre, ugorjon középre
+            translateY = 0;
+        }
+        if (scale > 8) scale = 8; // Maximum 8x nagyítás
+        
+        updateTransform();
         lastDist = dist;
+        
+    } else if (e.touches.length === 1 && scale > 1) {
+        // --- MOZGATÁS (PANNING) ---
+        translateX = e.touches[0].pageX - startX;
+        translateY = e.touches[0].pageY - startY;
+        updateTransform();
     }
 }, { passive: false });
 
