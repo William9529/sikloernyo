@@ -2,10 +2,10 @@
   "name": "Siklóernyős vizsga felkészítő",
   "short_name": "Siklóernyő",
   "description": "Offline vizsgafelkészítő applikáció",
-  "start_url": "./index.html",
+  "start_url": "./index.html?utm_source=pwa",
   "display": "standalone",
-  "background_color": "#f0f4f8",
-  "theme_color": "#2563eb",
+  "background_color": "#EAEAEA",
+  "theme_color": "#4A5059",
   "icons": [
     {
       "src": "assets/app_icon.png",

@@ -1,30 +1,41 @@
-const CACHE_NAME = 'sikloernyo-offline-cache';
+const CACHE_NAME = 'sikloernyo-v7.0'; // Új verziószám a cache névben
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './script.js',
   './data_a.js',
-  './data_b.js'
+  './data_b.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
-  self.skipWaiting(); // Azonnal aktiválja az új Service Workert
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(self.clients.claim()); // Azonnal átveszi az irányítást
+  // Régi cache verziók törlése a frissítés kényszerítéséhez
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', e => {
   e.respondWith(
     fetch(e.request)
       .then(response => {
-        // Hálózat elsődleges: ha van net és sikeres a letöltés, 
-        // csendben frissítjük vele az offline gyorsítótárat is.
         if (response && response.status === 200) {
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(e.request, responseClone));
@@ -32,7 +43,6 @@ self.addEventListener('fetch', e => {
         return response;
       })
       .catch(() => {
-        // Ha hiba van (nincs internet), akkor odaadjuk az offline verziót
         return caches.match(e.request);
       })
   );

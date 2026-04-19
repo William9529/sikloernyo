@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Siklóernyő Vizsga Felkészítő</title>
-    <!-- Modern iOS-szerű betűtípus -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Prémium, elegáns betűtípus -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css?v=7.0">
+    <link rel="manifest" href="manifest.json?v=7.0">
     <link rel="apple-touch-icon" href="assets/app_icon.png">
     <meta name="theme-color" content="#EAEAEA">
     <script>
@@ -36,7 +34,6 @@
             <div id="search-results-container"></div>
 
             <div class="button-group">
-                <!-- Itt javítottam a gombokat: mindkettő csak 'exam-btn' -->
                 <button class="exam-btn" onclick="loadExam('A')">"A" vizsga kérdések</button>
                 <button class="exam-btn" onclick="loadExam('B')">"B" vizsga kérdések</button>
             </div>
@@ -45,7 +42,7 @@
         <main id="exam-view" class="view">
             <button class="back-btn" onclick="goHome()">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                Vissza a főoldalra
+                Vissza
             </button>
             <h2 id="exam-title"></h2>
             <div id="topics-container"></div>
@@ -62,10 +59,28 @@
         <img class="modal-content" id="expanded-img" alt="Nagyított kép">
     </div>
 
-    <div id="version-display">v6.4</div>
+    <div id="version-display">v7.0</div>
 
-    <script src="data_a.js"></script>
-    <script src="data_b.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Service Worker regisztráció automatikus frissítéssel
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then(reg => {
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // Új verzió észlelésekor automatikus újratöltés
+                                window.location.reload();
+                            }
+                        });
+                    });
+                });
+            });
+        }
+    </script>
+    <script src="data_a.js?v=7.0"></script>
+    <script src="data_b.js?v=7.0"></script>
+    <script src="script.js?v=7.0"></script>
 </body>
 </html>
