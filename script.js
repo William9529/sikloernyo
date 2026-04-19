@@ -146,12 +146,23 @@ document.addEventListener('keydown', function(event) {
 // --- PWA (Offline App) Regisztráció ---
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(registration => {
-                console.log('ServiceWorker sikeresen regisztrálva:', registration.scope);
-            })
-            .catch(error => {
-                console.log('ServiceWorker regisztráció sikertelen:', error);
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                    // Amikor az új SW települt és várakozik
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        showUpdateNotification();
+                    }
+                });
             });
+        });
     });
+}
+
+function showUpdateNotification() {
+    const userConfirmed = confirm("Új verzió érhető el. Szeretnéd frissíteni?");
+    if (userConfirmed) {
+        window.location.reload(); // Frissítés után az új verzió tölt be
+    }
 }

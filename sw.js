@@ -18,6 +18,11 @@ self.addEventListener('install', event => {
   );
 });
 
+self.addEventListener('install', event => {
+  self.skipWaiting(); // Azonnal aktiválódik az új verzió, nem vár a bezárásra
+  // ... a többi kódod (urlsToCache, stb.)
+});
+
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
