@@ -121,7 +121,7 @@ modal.addEventListener('touchmove', e => {
     }
 }, { passive: false });
 
-// Service Worker regisztráció
+// Service Worker regisztráció (csendes háttérfrissítés, felugró ablak nélkül)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js');

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sikloernyo-v4.2';
+const CACHE_NAME = 'sikloernyo-offline-cache';
 const urlsToCache = [
   './',
   './index.html',
@@ -9,15 +9,31 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+  self.skipWaiting(); // Azonnal aktiválja az új Service Workert
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+  );
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => {
-    if(k !== CACHE_NAME) return caches.delete(k);
-  }))));
+  e.waitUntil(self.clients.claim()); // Azonnal átveszi az irányítást
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+  e.respondWith(
+    fetch(e.request)
+      .then(response => {
+        // Hálózat elsődleges: ha van net és sikeres a letöltés, 
+        // csendben frissítjük vele az offline gyorsítótárat is.
+        if (response && response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(e.request, responseClone));
+        }
+        return response;
+      })
+      .catch(() => {
+        // Ha hiba van (nincs internet), akkor odaadjuk az offline verziót
+        return caches.match(e.request);
+      })
+  );
 });
