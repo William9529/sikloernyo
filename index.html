@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/app_icon.png">
-    <meta name="theme-color" content="#F2F2F7">
+    <meta name="theme-color" content="#EAEAEA">
     <script>
       window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
@@ -19,13 +19,13 @@
     <div class="container">
         <header>
             <h1>Siklóernyős vizsga</h1>
-            <p>Keress rá bármire a vizsgákkal kapcsolatban</p>
+            <p>Keress rá bármire a vizsgákkal kapcsolatban!</p>
         </header>
 
         <main id="home-view" class="view active">
             <div class="search-box">
                 <div class="search-input-wrapper">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8E8E93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" id="search-input" onkeyup="handleSearchKeyPress(event)" placeholder="Keresés (pl. meteorológia)...">
                 </div>
                 <button class="search-btn" onclick="performSearch()">Keresés</button>
@@ -34,8 +34,9 @@
             <div id="search-results-container"></div>
 
             <div class="button-group">
-                <button class="exam-btn primary" onclick="loadExam('A')">"A" vizsga kérdések</button>
-                <button class="exam-btn secondary" onclick="loadExam('B')">"B" vizsga kérdések</button>
+                <!-- Itt javítottam a gombokat: mindkettő csak 'exam-btn' -->
+                <button class="exam-btn" onclick="loadExam('A')">"A" vizsga kérdések</button>
+                <button class="exam-btn" onclick="loadExam('B')">"B" vizsga kérdések</button>
             </div>
         </main>
 
@@ -59,7 +60,7 @@
         <img class="modal-content" id="expanded-img" alt="Nagyított kép">
     </div>
 
-    <div id="version-display">v5.2</div>
+    <div id="version-display">v5.3</div>
 
     <script src="data_a.js"></script>
     <script src="data_b.js"></script>
