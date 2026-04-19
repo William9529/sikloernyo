@@ -20,7 +20,8 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Az új elegáns betűtípus beállítása */
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: url('assets/stylish_paragliding_bg.png') no-repeat center center fixed;
     background-size: cover;
     color: var(--ios-text);
@@ -32,12 +33,11 @@ body {
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    background: rgba(240, 240, 245, 0.45); /* Kevésbé vakító fehér */
+    background: rgba(240, 240, 245, 0.45); 
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border-radius: var(--radius-lg);
     padding: 50px;
-    /* Erőteljesebb árnyék, hogy az egész blokk kiemelkedjen a háttérből */
     box-shadow: 0 30px 60px rgba(0,0,0,0.25);
     border: 1px solid rgba(255,255,255,0.4);
 }
@@ -46,10 +46,10 @@ header { text-align: center; margin-bottom: 40px; }
 header h1 { 
     font-size: 2.8rem; 
     font-weight: 800; 
-    letter-spacing: -0.5px; 
+    letter-spacing: -1px; /* A Montserrat betűtípus szebben mutat egy kis negatív térközzel a címsorokban */
     margin-bottom: 10px; 
     color: var(--ios-text); 
-    text-shadow: 0 2px 4px rgba(255,255,255,0.5); /* Kis ragyogás a jobb olvashatóságért */
+    text-shadow: 0 2px 4px rgba(255,255,255,0.5);
 }
 header p { color: var(--ios-text-secondary); font-size: 1.15rem; font-weight: 500; }
 
@@ -70,17 +70,19 @@ header p { color: var(--ios-text-secondary); font-size: 1.15rem; font-weight: 50
 
 #search-input {
     width: 100%; padding: 14px 16px 14px 40px; 
-    background: rgba(255, 255, 255, 0.35); /* Visszafogottabb fehér */
+    background: rgba(255, 255, 255, 0.35); 
     border: 1px solid rgba(0, 0, 0, 0.1); 
     border-radius: var(--radius-md); font-size: 1.05rem; font-weight: 500;
     color: var(--ios-text); outline: none; transition: 0.2s;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /* Erősebb besüllyesztés */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); 
+    font-family: inherit; /* Örökli az új betűtípust */
 }
 #search-input:focus { 
     background: rgba(255, 255, 255, 0.7); 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
     border-color: rgba(0, 0, 0, 0.2);
 }
+#search-input::placeholder { color: rgba(28, 28, 30, 0.5); font-weight: 500; }
 
 .search-btn {
     padding: 14px 20px; 
@@ -89,7 +91,8 @@ header p { color: var(--ios-text-secondary); font-size: 1.15rem; font-weight: 50
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--radius-md); font-weight: 600; font-size: 1.05rem; 
     cursor: pointer; transition: 0.2s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Kiemelkedő árnyék */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    font-family: inherit;
 }
 .search-btn:hover { 
     background: rgba(255, 255, 255, 0.6); 
@@ -104,11 +107,12 @@ header p { color: var(--ios-text-secondary); font-size: 1.15rem; font-weight: 50
     border: 1px solid rgba(255, 255, 255, 0.15); 
     border-radius: 18px;
     font-weight: 700; cursor: pointer; font-size: 1.15rem; transition: 0.2s;
-    /* Szürkés-antracit gradiens */
     background: linear-gradient(135deg, rgba(90, 95, 105, 0.9), rgba(60, 65, 75, 0.95));
     backdrop-filter: blur(10px);
     color: #FFFFFF; 
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Erős leválasztó árnyék */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); 
+    font-family: inherit;
+    letter-spacing: 0.5px; /* Finom elegancia a gomb feliratának */
 }
 .exam-btn:hover { 
     background: linear-gradient(135deg, rgba(100, 105, 115, 0.95), rgba(70, 75, 85, 1));
@@ -126,49 +130,47 @@ header p { color: var(--ios-text-secondary); font-size: 1.15rem; font-weight: 50
     background: rgba(255, 255, 255, 0.35); 
     border: 1px solid rgba(0, 0, 0, 0.1); 
     border-radius: 20px; 
-    color: var(--ios-accent); /* Szürke szöveg a kék helyett */
+    color: var(--ios-accent); 
     font-size: 1rem; font-weight: 700; cursor: pointer; 
     display: inline-flex; align-items: center; gap: 6px; 
     margin-bottom: 25px; padding: 8px 16px 8px 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     transition: all 0.2s ease;
     backdrop-filter: blur(10px);
+    font-family: inherit;
 }
 .back-btn:hover {
     background: rgba(255, 255, 255, 0.6);
     transform: translateX(-2px); 
 }
 
-#exam-title { margin-bottom: 25px; font-size: 2.2rem; font-weight: 800; color: var(--ios-text); }
+#exam-title { margin-bottom: 25px; font-size: 2.2rem; font-weight: 800; color: var(--ios-text); letter-spacing: -0.5px; }
 
 /* --- TÉMAKÖRÖK ÉS KÉRDÉSEK --- */
 
-/* Fő témakör konténer - Több árnyék, sötétebb keret */
 .topic-details {
-    background: rgba(230, 230, 235, 0.3); /* Kissé sötétebb üveg */
+    background: rgba(230, 230, 235, 0.3); 
     border-radius: var(--radius-lg); 
     margin-bottom: 25px; 
     border: 1px solid rgba(0, 0, 0, 0.15); 
     padding: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Jól látható szeparáció a háttértől */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
     overflow: hidden;
 }
 
-/* Kérdés kártyák - Árnyékoltabb alap */
 .question-details {
     background: rgba(255, 255, 255, 0.5); 
     border-radius: var(--radius-md); 
     margin-bottom: 8px; 
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.05); /* Határozottabb árnyék zárt állapotban is */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Lenyitott kártya: Kiemelkedik a térből */
 details[open].question-details {
     background: rgba(255, 255, 255, 0.9); 
     border-color: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Erős, térbeli kiemelés */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
 }
 
 details > summary { list-style: none; }
@@ -192,7 +194,7 @@ summary::after {
 }
 details[open] > summary::after { transform: translateY(-50%) rotate(45deg); }
 
-/* VÁLASZ SZEKCIÓ - Mélyebb, sötétebb besüllyesztés */
+/* VÁLASZ SZEKCIÓ */
 .answer { 
     padding: 18px 20px 22px 20px; 
     color: var(--ios-text);
@@ -200,10 +202,9 @@ details[open] > summary::after { transform: translateY(-50%) rotate(45deg); }
     line-height: 1.7; 
     font-weight: 500;
     
-    /* Erősebb "füstös" szürke a válasz hátterének */
     background: rgba(0, 0, 0, 0.06); 
-    border-top: 1px solid rgba(0, 0, 0, 0.12); /* Sötétebb elválasztó vonal */
-    box-shadow: inset 0 5px 10px rgba(0,0,0,0.05); /* Mélyebb belső árnyék */
+    border-top: 1px solid rgba(0, 0, 0, 0.12); 
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.05); 
     
     border-bottom-left-radius: var(--radius-md);
     border-bottom-right-radius: var(--radius-md);
@@ -217,14 +218,14 @@ mark { background: rgba(255, 204, 0, 0.6); color: var(--ios-text); padding: 2px 
 .badge { 
     background: rgba(0,0,0,0.08); font-size: 0.75rem; padding: 5px 10px; 
     border-radius: 6px; margin-bottom: 8px; display: inline-block; 
-    color: var(--ios-text-secondary); font-weight: 700; text-transform: uppercase;
+    color: var(--ios-text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
 }
 
 /* KÉPEK ÉS MODAL */
 .exam-image { 
     max-width: 100%; height: auto; margin-top: 18px; border-radius: 12px; 
     cursor: pointer; border: 1px solid rgba(0,0,0,0.1); 
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1); /* Erősebb árnyék a képeken is */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1); 
 }
 
 .modal {
